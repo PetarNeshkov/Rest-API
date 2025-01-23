@@ -9,15 +9,15 @@ public class Book
 
     [Required]
     [MaxLength(200)]
-    public required string Title { get; init; }
+    public required string Title { get; set; }
 
     [Required]
     [MaxLength(200)]
-    public required string Author { get; init; }
+    public required string Author { get; set; }
 
     [Required]
-    public int PublishedYear { get; init; }
+    public int PublishedYear { get; set; }
 
     [MaxLength(50)]
-    public required string Genre { get; init; }
+    public required string Genre { get; set; }
 }

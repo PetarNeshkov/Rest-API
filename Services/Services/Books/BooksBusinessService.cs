@@ -76,7 +76,27 @@ public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBus
         return book;
     }
 
-    public Task<string> UpdateBook(EditRequestModel model) => throw new NotImplementedException();
+    public async Task<string?> UpdateBook(EditRequestModel model)
+    {
+        var book = await libraryDbContext.Books.FindAsync(model.Id);
+
+        if (book == null)
+        {
+            return null;
+        }
+
+        book.Title = model.Title ?? book.Title;
+        book.Author = model.Author ?? book.Author;
+        book.Genre = model.Genre ?? book.Genre;
+        book.PublishedYear = model.PublishedYear;
+        
+        libraryDbContext.Books.Update(book);
+        await libraryDbContext.SaveChangesAsync();
+        
+        var successfulMessage = string.Format(SuccessfulEditMessage, book.Id);
+        
+        return successfulMessage;
+    }
 
     public async Task<string?> DeleteBook(Guid id)
     {

@@ -15,12 +15,12 @@ public class BooksController(IBooksBusinessService booksBusinessService)
         {
             return BadRequest(new { Message = InvalidPageNumberMessage });
         }
-        
+
         var result = await booksBusinessService.GetBooksByPage(page);
 
         return Ok(result);
     }
-    
+
     [HttpGet]
     public async Task<IActionResult> GetBookData(Guid id)
     {
@@ -33,7 +33,7 @@ public class BooksController(IBooksBusinessService booksBusinessService)
 
         return Ok(result);
     }
-    
+
     [HttpPost]
     public async Task<IActionResult> AddBook(CreateBookRequestModel book)
     {
@@ -41,7 +41,19 @@ public class BooksController(IBooksBusinessService booksBusinessService)
 
         return Ok(result);
     }
-    
+
+    [HttpPatch]
+    public async Task<IActionResult> UpdateBook(EditRequestModel model)
+    {
+        var book = await booksBusinessService.UpdateBook(model);
+        if (book == null)
+        {
+            return NotFound(new { MessaMge = BookDoesNotExistMessage });
+        }
+
+        return Ok(book);
+    }
+
     [HttpDelete]
     public async Task<IActionResult> DeleteBook(Guid id)
     {

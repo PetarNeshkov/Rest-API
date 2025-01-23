@@ -12,7 +12,7 @@ public interface IBooksBusinessService
     
     Task<Book> CreateNewBook(CreateBookRequestModel model);
 
-    Task<string> UpdateBook(EditRequestModel model);
+    Task<string?> UpdateBook(EditRequestModel model);
 
     Task<string?> DeleteBook(Guid id);
 }
