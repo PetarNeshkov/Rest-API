@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Data;
 using Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Models.Books;
+using Models.Pagination;
 using Services.Books.Interfaces;
 using static Common.GlobalConstants;
 
@@ -9,7 +11,35 @@ namespace Services.Books;
 
 public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBusinessService
 {
-    public Task<BookResponseModel> GetCurrentBooks(int page = 1) => throw new NotImplementedException();
+    
+    public async Task<PaginatedList<BookResponseModel>> GetBooksByPage(int page = 1)
+    {
+        var skip = (page - 1) * BooksPerPage;
+
+        var totalBooks = await libraryDbContext.Books.CountAsync();
+
+        var books = await libraryDbContext.Books
+            .Skip(skip)
+            .Take(BooksPerPage)
+            .Select(b => new BookResponseModel
+            {
+                Id = b.Id,
+                Title = b.Title,
+                Author = b.Author,
+                Genre = b.Genre,
+                PublishedYear = b.PublishedYear
+            })
+            .ToListAsync();
+        
+        return new PaginatedList<BookResponseModel>
+        {
+            Page = page,
+            PageSize = BooksPerPage,
+            TotalCount = totalBooks,
+            TotalPages = (int)Math.Ceiling(totalBooks / (double)BooksPerPage),
+            Items = books
+        };
+    }
 
     public async Task<BookResponseModel?> GetBookData(Guid bookId)
     {

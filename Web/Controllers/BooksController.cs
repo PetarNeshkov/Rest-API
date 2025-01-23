@@ -9,6 +9,19 @@ public class BooksController(IBooksBusinessService booksBusinessService)
     : BaseApiController
 {
     [HttpGet]
+    public async Task<IActionResult> GetAll(int page)
+    {
+        if (page < 1)
+        {
+            return BadRequest(new { Message = InvalidPageNumberMessage });
+        }
+        
+        var result = await booksBusinessService.GetBooksByPage(page);
+
+        return Ok(result);
+    }
+    
+    [HttpGet]
     public async Task<IActionResult> GetBookData(Guid id)
     {
         var result = await booksBusinessService.GetBookData(id);

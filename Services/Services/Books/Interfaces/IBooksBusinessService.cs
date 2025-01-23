@@ -1,11 +1,12 @@
 ﻿using Data.Models;
 using Models.Books;
+using Models.Pagination;
 
 namespace Services.Books.Interfaces;
 
 public interface IBooksBusinessService
 {
-    Task<BookResponseModel> GetCurrentBooks(int page = 1);
+    Task<PaginatedList<BookResponseModel>> GetBooksByPage(int page = 1);
     
     Task<BookResponseModel?> GetBookData(Guid bookId);
     
