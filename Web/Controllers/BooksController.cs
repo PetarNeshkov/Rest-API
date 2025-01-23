@@ -8,15 +8,23 @@ namespace Web.Controllers;
 public class BooksController(IBooksBusinessService booksBusinessService)
     : BaseApiController
 {
+    [HttpGet]
+    public async Task<IActionResult> GetBookData(Guid id)
+    {
+        var result = await booksBusinessService.GetBookData(id);
+
+        if (result == null)
+        {
+            return NotFound(new { Message = BookDoesNotExistMessage });
+        }
+
+        return Ok(result);
+    }
+    
     [HttpPost]
     public async Task<IActionResult> AddBook(CreateBookRequestModel book)
     {
         var result = await booksBusinessService.CreateNewBook(book);
-
-        if (string.IsNullOrWhiteSpace(result))
-        {
-            return BadRequest(new { Message = FailedCreationMessage });
-        }
 
         return Ok(result);
     }
@@ -28,7 +36,7 @@ public class BooksController(IBooksBusinessService booksBusinessService)
 
         if (result == null)
         {
-            return NotFound(new { MessaMge = FailedDeleteMessage });
+            return NotFound(new { MessaMge = BookDoesNotExistMessage });
         }
 
         return Ok(result);

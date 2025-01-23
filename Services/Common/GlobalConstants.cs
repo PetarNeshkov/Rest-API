@@ -8,9 +8,8 @@ public static class GlobalConstants
     public static class ErrorMessages
     {
         public const string IdModelIdValidationMessage = "The provided id for the entity is invalid.";
-        public const string EntityDoesNotExistMessage = "Entity does not exist.";
+        public const string BookDoesNotExistMessage = "Book does not exist.";
         public const string FailedCreationMessage = "Creation failed.";
-        public const string FailedDeleteMessage = "Delete failed.";
         public static class Books
         {
             public const string ExistsMessage = "Book already exists";

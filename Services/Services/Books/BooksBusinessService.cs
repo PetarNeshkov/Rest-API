@@ -9,12 +9,28 @@ namespace Services.Books;
 
 public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBusinessService
 {
-    public Task<BookResponseModel> GetCurrentBooks(int page = 1)
+    public Task<BookResponseModel> GetCurrentBooks(int page = 1) => throw new NotImplementedException();
+
+    public async Task<BookResponseModel?> GetBookData(Guid bookId)
     {
-       throw new NotImplementedException();
+        var book = await libraryDbContext.Books.FindAsync(bookId);
+
+        if (book == null)
+        {
+            return null;
+        }
+
+        return new BookResponseModel
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author,
+            Genre = book.Genre,
+            PublishedYear = book.PublishedYear,
+        };
     }
 
-    public async Task<string> CreateNewBook(CreateBookRequestModel model)
+    public async Task<Book> CreateNewBook(CreateBookRequestModel model)
     {
         var book = new Book
         {
@@ -27,7 +43,7 @@ public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBus
         libraryDbContext.Books.Add(book);
         await libraryDbContext.SaveChangesAsync();
         
-        return string.Format(SuccessfulCreationMessage, model.Title);
+        return book;
     }
 
     public Task<string> UpdateBook(EditRequestModel model) => throw new NotImplementedException();
