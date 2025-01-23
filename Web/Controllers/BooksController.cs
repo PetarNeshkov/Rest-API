@@ -21,5 +21,16 @@ public class BooksController(IBooksBusinessService booksBusinessService)
         return Ok(result);
     }
     
-    
+    [HttpDelete]
+    public async Task<IActionResult> DeleteBook(Guid id)
+    {
+        var result = await booksBusinessService.DeleteBook(id);
+
+        if (result == null)
+        {
+            return NotFound(new { MessaMge = FailedDeleteMessage });
+        }
+
+        return Ok(result);
+    }
 }

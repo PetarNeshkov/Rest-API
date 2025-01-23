@@ -32,5 +32,20 @@ public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBus
 
     public Task<string> UpdateBook(EditRequestModel model) => throw new NotImplementedException();
 
-    public Task<string> DeleteBook(Guid id) => throw new NotImplementedException();
+    public async Task<string?> DeleteBook(Guid id)
+    {
+        var bookToDelete = await libraryDbContext.Books.FindAsync(id);
+
+        if (bookToDelete == null)
+        {
+            return null;
+        }
+        
+        var successfulMessage = string.Format(SuccessfulDeleteMessage, bookToDelete.Title);
+
+        libraryDbContext.Remove(bookToDelete!);
+        await libraryDbContext.SaveChangesAsync();
+
+        return successfulMessage;
+    }
 }

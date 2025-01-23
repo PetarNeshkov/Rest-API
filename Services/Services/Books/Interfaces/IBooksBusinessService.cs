@@ -10,5 +10,5 @@ public interface IBooksBusinessService
 
     Task<string> UpdateBook(EditRequestModel model);
 
-    Task<string> DeleteBook(Guid id);
+    Task<string?> DeleteBook(Guid id);
 }
