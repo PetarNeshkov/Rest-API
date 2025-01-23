@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web.csproj", "{B3D82C26-A058-4B25-A5E2-2CB1063D8383}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{8A811772-11C4-4DBF-8EE8-C97734CBEF44}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{0C998C58-70EB-44D3-8963-1674C0635D3A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{AAB89E74-A192-40F8-A238-4A4E98ED5A04}"
+	ProjectSection(SolutionItems) = preProject
+		Book.cs = Book.cs
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\Data\Data\Data.csproj", "{FDC208C1-2FCE-4D9F-9870-232A5E22E661}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B3D82C26-A058-4B25-A5E2-2CB1063D8383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3D82C26-A058-4B25-A5E2-2CB1063D8383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3D82C26-A058-4B25-A5E2-2CB1063D8383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3D82C26-A058-4B25-A5E2-2CB1063D8383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDC208C1-2FCE-4D9F-9870-232A5E22E661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDC208C1-2FCE-4D9F-9870-232A5E22E661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDC208C1-2FCE-4D9F-9870-232A5E22E661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDC208C1-2FCE-4D9F-9870-232A5E22E661}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B3D82C26-A058-4B25-A5E2-2CB1063D8383} = {8A811772-11C4-4DBF-8EE8-C97734CBEF44}
+		{AAB89E74-A192-40F8-A238-4A4E98ED5A04} = {0C998C58-70EB-44D3-8963-1674C0635D3A}
+		{FDC208C1-2FCE-4D9F-9870-232A5E22E661} = {0C998C58-70EB-44D3-8963-1674C0635D3A}
+	EndGlobalSection
+EndGlobal
