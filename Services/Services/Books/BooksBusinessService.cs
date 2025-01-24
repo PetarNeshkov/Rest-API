@@ -85,9 +85,9 @@ public class BooksBusinessService(LibraryDbContext libraryDbContext) : IBooksBus
             return null;
         }
 
-        book.Title = model.Title ?? book.Title;
-        book.Author = model.Author ?? book.Author;
-        book.Genre = model.Genre ?? book.Genre;
+        book.Title = model.Title;
+        book.Author = model.Author;
+        book.Genre = model.Genre;
         book.PublishedYear = model.PublishedYear;
         
         libraryDbContext.Books.Update(book);

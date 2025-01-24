@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.Books;
+using Models.Errors;
 using Services.Books.Interfaces;
 using static Common.GlobalConstants.ErrorMessages;
 
@@ -13,7 +14,7 @@ public class BooksController(IBooksBusinessService booksBusinessService)
     {
         if (page < 1)
         {
-            return BadRequest(new { Message = InvalidPageNumberMessage });
+            return BadRequest(new ErrorResponse { Message = InvalidPageNumberMessage });
         }
 
         var result = await booksBusinessService.GetBooksByPage(page);
@@ -28,7 +29,7 @@ public class BooksController(IBooksBusinessService booksBusinessService)
 
         if (result == null)
         {
-            return NotFound(new { Message = BookDoesNotExistMessage });
+            return NotFound(new ErrorResponse { Message = BookDoesNotExistMessage });
         }
 
         return Ok(result);
@@ -37,6 +38,11 @@ public class BooksController(IBooksBusinessService booksBusinessService)
     [HttpPost]
     public async Task<IActionResult> AddBook(CreateBookRequestModel book)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var result = await booksBusinessService.CreateNewBook(book);
 
         return Ok(result);
@@ -45,10 +51,15 @@ public class BooksController(IBooksBusinessService booksBusinessService)
     [HttpPatch]
     public async Task<IActionResult> UpdateBook(EditRequestModel model)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
         var book = await booksBusinessService.UpdateBook(model);
         if (book == null)
         {
-            return NotFound(new { MessaMge = BookDoesNotExistMessage });
+            return NotFound(new ErrorResponse{ Message = BookDoesNotExistMessage });
         }
 
         return Ok(book);
@@ -61,7 +72,7 @@ public class BooksController(IBooksBusinessService booksBusinessService)
 
         if (result == null)
         {
-            return NotFound(new { MessaMge = BookDoesNotExistMessage });
+            return NotFound(new ErrorResponse{ Message = BookDoesNotExistMessage });
         }
 
         return Ok(result);
